@@ -1,0 +1,16 @@
+{
+  "name": "haka_node",
+  "version": "1.0.0",
+  "description": "yolo",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Hackers don't need testing\" && exit 0"
+  },
+  "author": "haka_toni",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^1.18.7",
+    "express": "^4.16.4",
+    "@google-cloud/automl": "^0.1.3"
+  }
+}
