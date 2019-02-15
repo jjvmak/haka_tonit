@@ -11,7 +11,7 @@ client = vision.ImageAnnotatorClient()
 # The name of the image file to annotate
 file_name = os.path.join(
     os.path.dirname(__file__),
-    'resources/images.jpeg')
+    'resource/images.jpeg')
 
 # Loads the image into memory
 with io.open(file_name, 'rb') as image_file:
