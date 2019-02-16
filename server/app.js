@@ -17,6 +17,8 @@ const scoreThreshold = "0.5";
 const modelFullId = client.modelPath(projectId, computeRegion, modelId);
 
 
+app.use(express.json());
+
 // Handle GET root
 app.get('/', (req, res) => {
     console.log("somebody meddled with root");
@@ -25,14 +27,15 @@ app.get('/', (req, res) => {
 
 // Handle POST image
 app.post('/image', (req, res) => {
-    console.log("received something (an image?)");
     var request = {
         image: req.body.image
     };
+    console.log(request);
 
     //check if was Gambina or not
-    var response = checkGambinity(request.image);
-    res.send(response);
+    //var response = checkGambinity(request.image);
+    
+    res.send(request);
 });
 
 
@@ -73,4 +76,4 @@ async function checkGambinity(img) {
 
 
 // Open to localhost:6900
-app.listen(6900, () => console.log('Send gambina.jpgs to 6900 now'));
+app.listen(6900, () => console.log('Images of gambiina expected in port 6900'));
