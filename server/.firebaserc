@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "prod": "haka-tonit-backend",
+    "default": "haka-tonit-backend"
+  }
+}
