@@ -1,4 +1,7 @@
 
+// secret key
+const key = "haka_ton1";
+
 // Node requirements
 const express = require('express');
 const app = express();
@@ -10,7 +13,7 @@ const client = new automl.PredictionServiceClient();
 // Google Cloud project configs
 const projectId = "plenary-cat-231816";
 const computeRegion = "europe-north1";
-const modelId = "TODOOO";
+const modelId = "TODO";
 const scoreThreshold = "0.5";
 
 // Get the full path of the model.
@@ -27,15 +30,28 @@ app.get('/', (req, res) => {
 
 // Handle POST image
 app.post('/image', (req, res) => {
-    var request = {
-        image: req.body.image
-    };
-    console.log(request);
 
-    //check if was Gambina or not
-    //var response = checkGambinity(request.image);
-    
-    res.send(request);
+    //if key correct:
+    if (req.body.hasOwnProperty('key') && req.body.hasOwnProperty('image') && req.body.key === key) {
+        console.log("we spotted a very nice friend of gambiina :)");
+        var request = {
+            image: req.body.image
+        };
+
+        //TEST:
+        console.log(request);
+        res.send(request);
+
+        //PRODUCTION:
+        //var response = checkGambinity(request.image);
+        //res.send(response);
+
+    //if not:
+    } else {
+        console.log("we spotted an infiltrator");
+        res.status(400);
+        res.send("get out!");
+    }
 });
 
 
@@ -76,4 +92,4 @@ async function checkGambinity(img) {
 
 
 // Open to localhost:6900
-app.listen(6900, () => console.log('Images of gambiina expected in port 6900'));
+app.listen(6900, () => console.log('Ready to gamibinify in port 6900..'));
