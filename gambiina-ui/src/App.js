@@ -6,7 +6,7 @@ import "./App.css";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { show: true, imageUrl: "" };
+    this.state = { show: true, imageUrl: "", response: "" };
     this.onSubmit = this.onSubmit.bind(this);
     this.toggleHide = this.toggleHide.bind(this);
     this.toggleShow = this.toggleShow.bind(this);
@@ -16,19 +16,25 @@ class App extends Component {
   onSubmit(e) {
     e.preventDefault();
     console.log("click");
-    console.log(this.state.imageUrl);
-    fetch("http://localhost:6900/image", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        image: this.state.imageUrl,
-        key: "haka_ton1"
-      })
-    });
+    console.log("Onnistui");
+    fetch(
+      "https://us-central1-haka-tonit-backend.cloudfunctions.net/app/image",
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          image: this.state.imageUrl,
+          key: "haka_ton1"
+        })
+      }
+    )
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
   }
 
   toggleShow(e) {
