@@ -6,15 +6,29 @@ import "./App.css";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { show: true };
-    this.click = this.click.bind(this);
+    this.state = { show: true, imageUrl: "" };
+    this.onSubmit = this.onSubmit.bind(this);
     this.toggleHide = this.toggleHide.bind(this);
     this.toggleShow = this.toggleShow.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
   }
 
-  click(e) {
+  onSubmit(e) {
     e.preventDefault();
     console.log("click");
+    console.log(this.state.imageUrl);
+    fetch("http://localhost:6900/image", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        image: this.state.imageUrl,
+        key: "haka_ton1"
+      })
+    });
   }
 
   toggleShow(e) {
@@ -24,6 +38,18 @@ class App extends Component {
     this.setState({ show: true });
   }
 
+  handleImageChange(e) {
+    let reader = new FileReader();
+    let picture = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        imageUrl: reader.result
+      });
+    };
+    reader.readAsDataURL(picture);
+  }
+
   render() {
     return (
       <div className="container">
@@ -31,7 +57,7 @@ class App extends Component {
           <header>
             <h1>Tervetuloa Gambina tunnistajaan</h1>
           </header>
-          <div class="parent">
+          <div className="parent">
             <img className="App-logo" src={logo} alt="logo" />
             <img className="image2" src={logo2} alt="logo" />
           </div>
@@ -40,15 +66,17 @@ class App extends Component {
             <input
               className="input"
               type="file"
+              placeholder="Put your own picture here"
+              onChange={this.handleImageChange}
               accept="image/*"
-              placeholder="Laita oma kuva tänne"
+              capture="camera"
             />
           </div>
 
           <br />
           <div
             className="buttonBackground"
-            onClick={this.click}
+            onClick={this.onSubmit}
             onMouseOver={this.toggleShow}
             onMouseLeave={this.toggleHide}
           />
