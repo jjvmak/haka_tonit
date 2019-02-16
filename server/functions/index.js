@@ -18,7 +18,7 @@ const automl = require("@google-cloud/automl").v1beta1;
 const client = new automl.PredictionServiceClient();
 const projectId = "plenary-cat-231816";
 const computeRegion = "europe-north1";
-const modelId = "TODO";
+const modelId = "ICN8961581247584461907";
 const scoreThreshold = "0.5";
 const modelFullId = client.modelPath(projectId, computeRegion, modelId);
 
@@ -70,11 +70,11 @@ app.post("/image", (req, res) => {
       image: req.body.image
     };
 
-    //TEST:
+    // Test http messages
     console.log(request);
     res.send(request);
 
-    //PRODUCTION:
+    // Send image to Firebase
     //var response = checkGambinity(request.image);
     //res.send(response);
 
@@ -125,3 +125,6 @@ async function checkGambinity(img) {
 //-------------------- EXPORT --------------------
 // Export app to Firebase
 exports.app = functions.https.onRequest(app);
+
+// Open to localhost:6900
+//app.listen(6900, () => console.log("Ready to gamibinify in port 6900.."));
