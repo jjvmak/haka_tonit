@@ -1,9 +1,12 @@
 
-// *** This app.js is only for node-js local testing ***
+// *** This is the app.js to be hosted in Firebase ***
 
 //-------------------- CONFIGS --------------------
 // secret key
 const key = "haka_ton1";
+
+// Firebase requirement
+const functions = require('firebase-functions');
 
 // Node requirements
 const express = require('express');
@@ -13,14 +16,10 @@ app.use(express.json());
 // AutoML configs
 const automl = require('@google-cloud/automl').v1beta1;
 const client = new automl.PredictionServiceClient();
-
-// Google Cloud project configs
 const projectId = "plenary-cat-231816";
 const computeRegion = "europe-north1";
 const modelId = "TODO";
 const scoreThreshold = "0.5";
-
-// Get the full path of the model.
 const modelFullId = client.modelPath(projectId, computeRegion, modelId);
 
 
@@ -96,5 +95,5 @@ async function checkGambinity(img) {
 
 
 //-------------------- EXPORT --------------------
-// Open to localhost:6900
-app.listen(6900, () => console.log('Ready to gamibinify in port 6900..'));
+// Export app to Firebase
+exports.app = functions.https.onRequest(app);

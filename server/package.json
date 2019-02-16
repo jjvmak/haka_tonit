@@ -9,8 +9,9 @@
   "author": "haka_toni",
   "license": "ISC",
   "dependencies": {
-    "nodemon": "^1.18.7",
+    "@google-cloud/automl": "^0.1.3",
     "express": "^4.16.4",
-    "@google-cloud/automl": "^0.1.3"
+    "firebase-functions": "^2.2.0",
+    "nodemon": "^1.18.7"
   }
 }
